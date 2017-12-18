@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title></title>
@@ -10,13 +10,13 @@
             for (var i = 0; i < str.length; i++) {
                 var char = str.charAt(i);
                 //判断是否是数字
-                if (!isNaN(char)) {
+                if (!isNaN(char) && char != ' ') {
                     num++;
                 }
             }
             return num;
         }
-        document.write(getNum("1d3sdsg"));
+        document.write(getNum("1d33s d  sg"));
     </script>
 </head>
 <body>
