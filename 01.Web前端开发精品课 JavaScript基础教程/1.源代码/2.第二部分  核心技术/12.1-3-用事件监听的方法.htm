@@ -6,16 +6,16 @@
     <script>
         window.onload = function () {
             var oBtn = document.getElementById("btn");
-
-            oBtn.onclick = function () {
+		//用匿名函数
+            oBtn.addEventListener("click", function () {
                 alert("第1次");
-            };
-            oBtn.onclick = function () {
+            }, false);
+            oBtn.addEventListener("click", function () {
                 alert("第2次");
-            };
-            oBtn.onclick = function () {
+            }, false);
+            oBtn.addEventListener("click", function () {
                 alert("第3次");
-            };
+            }, false);
         }
     </script>
 </head>

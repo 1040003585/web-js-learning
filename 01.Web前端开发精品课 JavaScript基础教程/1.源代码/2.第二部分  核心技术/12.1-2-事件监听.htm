@@ -7,7 +7,7 @@
         window.onload = function () {
             var oBtn = document.getElementById("btn");
             oBtn.addEventListener("click", alertMes, false);
-
+		//alertMes为实名数据， false表示在事件冒泡阶段调用。
             function alertMes() {
                 alert("JavaScript");
             }

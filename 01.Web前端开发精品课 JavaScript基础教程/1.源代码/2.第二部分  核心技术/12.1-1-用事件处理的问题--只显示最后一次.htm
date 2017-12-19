@@ -7,16 +7,17 @@
         window.onload = function () {
             var oBtn = document.getElementById("btn");
 
-            oBtn.addEventListener("click", function () {
+            oBtn.onclick = function () {
                 alert("第1次");
-            }, false);
-            oBtn.addEventListener("click", function () {
+            };
+            oBtn.onclick = function () {
                 alert("第2次");
-            }, false);
-            oBtn.addEventListener("click", function () {
+            };
+            oBtn.onclick = function () {
                 alert("第3次");
-            }, false);
+            };
         }
+	//对用一个元素添加多个相同事件的实例：在点击白提交表单按钮时，需要验证由用户输入的全部数据，然后再通过Ajax将其提交给服务器。
     </script>
 </head>
 <body>
