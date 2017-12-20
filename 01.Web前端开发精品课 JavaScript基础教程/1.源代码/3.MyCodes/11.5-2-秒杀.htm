@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script>
+        window.onload = function () {
+            var oBtn = document.getElementById("btn");
+            //setInterval('alert("hello1");', 1000);
+            //setInterval('alert("hello2");', 1000);
+            //setInterval('alert("hello3");', 1000);
+            setInterval(function(){
+                var oBtn = document.getElementById("btn");
+                oBtn.click();
+            }, 10);	
+            oBtn.onclick = function myClick(){alert("hello");}
+        }
+    </script>
+</head>
+<body>
+    <input id="btn" type="button" value="确定"/>
+</body>
+</html>

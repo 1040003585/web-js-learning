@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://www.cnblogs.com/jiangz/p/4084894.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>chrome插件编写之新版hello world - juejiang - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./chrome插件编写之新版hello world - juejiang - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./chrome插件编写之新版hello world - juejiang - 博客园_files/bundle-coffee.css">
+<link type="text/css" rel="stylesheet" href="./chrome插件编写之新版hello world - juejiang - 博客园_files/135502.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./chrome插件编写之新版hello world - juejiang - 博客园_files/bundle-coffee-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/jiangz/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/jiangz/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/jiangz/wlwmanifest.xml">
+<script async="" src="./chrome插件编写之新版hello world - juejiang - 博客园_files/analytics.js"></script><script type="text/javascript" src="./chrome插件编写之新版hello world - juejiang - 博客园_files/encoder.js"></script><script src="./chrome插件编写之新版hello world - juejiang - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'jiangz', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./chrome插件编写之新版hello world - juejiang - 博客园_files/blog-common.js" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/jiangz/"><img id="blogLogo" src="./chrome插件编写之新版hello world - juejiang - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/jiangz/">juejiang</a></h1>
+<h2>分享，学习</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="navigator">
+			
+<ul id="navList">
+	<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+	<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/jiangz/">首页</a></li>
+	<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+	<li><a id="blog_nav_contact" accesskey="9" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/juejiang">联系</a></li>
+	<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+	<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/jiangz/rss">订阅</a>
+	<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/jiangz/rss"><img src="./chrome插件编写之新版hello world - juejiang - 博客园_files/xml.gif" alt="订阅"></a></li>
+</ul>
+
+
+			<div class="blogStats">
+				
+				<div id="blog_stats">
+<!--done-->
+随笔- 94&nbsp;
+文章- 0&nbsp;
+评论- 23&nbsp;
+</div>
+				
+			</div><!--end: blogStats -->
+		</div><!--end: navigator 博客导航栏 -->
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/jiangz/p/4084894.html">chrome插件编写之新版hello world</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><p>&nbsp; &nbsp;编写chrome插件之前，需要熟悉一下相应的chrome插件开发环境。从编写hello world开始，参考阅读官方的教程，是一个不错的选择。这里主要是基于chrome的官方教程，稍稍做了一些修改和扩充，总结成了如下的几个部分。</p>
+<p>&nbsp; &nbsp; 在chrome中编写插件和写网页应用基本一致，采用的是javascript+css+html的方式。所以对于用过chrome浏览器审阅过一些网页的源码，写过网页或者脚本的人而言，编写chrome的插件感觉到还是比较熟悉的。</p>
+<h2 id="blogTitle0">一、chrome插件和用户的几种交互方式</h2>
+<p>&nbsp; &nbsp;比较常见的插件形式是:</p>
+<p>&nbsp; &nbsp;1.browser action:即在浏览器的右上角有一个新增的显示插件图标的按钮，用户点击该按钮即可以触发插件的应用逻辑；</p>
+<p>&nbsp; &nbsp;2.backgroud javascript:这种情况下插件没有对应的图标和按钮，在chrome启动时，插件运行在自己的单独的背景线程中。与用户的交互方式通常是在某些相关网页加载完之后，通过javascript对该网页进行修改，将插件逻辑嵌入到页面html代码中。</p>
+<p>&nbsp; &nbsp;3.page action:这种插件形式在需要时在浏览器地址栏中弹出一个图标。</p>
+<p>&nbsp; &nbsp;更多：见<a href="https://developer.chrome.com/extensions/devguide">Developer's Guide - Google Chrome</a></p>
+<h2 id="blogTitle1">二、通过browser action实现hello world</h2>
+<h3 id="blogTitle2">2.1 程序的文件清单</h3>
+<p>&nbsp; &nbsp;先来看看hello world插件的文件清单，如下图所示。其中icon.png用于图标的显示,manifest.json是chrome 插件的基本配置文件，popup.html用于下拉菜单的构建，popup.js是和popup.html对应的js文件。</p>
+<p>&nbsp; &nbsp;<img style="float: left;" src="./chrome插件编写之新版hello world - juejiang - 博客园_files/091045371902708.png" alt=""></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3 id="blogTitle3">2.2 manifest.json文件</h3>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./chrome插件编写之新版hello world - juejiang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #000000;">{
+</span>"manifest_version":2<span style="color: #000000;">,
+
+</span>"name":"one-click hello_world"<span style="color: #000000;">,
+</span>"description":"my first chrome extension-browser action"<span style="color: #000000;">,
+</span>"version":"1.0"<span style="color: #000000;">,
+</span>"permissions"<span style="color: #000000;">:[
+    </span>"https://*/*",
+    "http://*/*"<span style="color: #000000;">
+    ],
+</span>"browser_action"<span style="color: #000000;">:{
+    </span>"default_icon":"icon.png"<span style="color: #000000;">,
+    </span>"default_popup":"popup.html"<span style="color: #000000;">
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./chrome插件编写之新版hello world - juejiang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp; &nbsp;manifest.json是chrome插件的配置文件，其基本内容如上所示。"manifest_version"字段默认设置为2。permissions字段设置了插件的基本权限，即具有访问所有http链接的权限。browser_action字段中default_icon和default_popup分别和之前的icon.png，popup.html文件相对应。</p>
+<h3 id="blogTitle4">2.3 popup.html</h3>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./chrome插件编写之新版hello world - juejiang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Hello World&lt;/title&gt;
+    &lt;style&gt;<span style="color: #000000;">
+      body {
+        min</span>-<span style="color: #000000;">width: 100px;
+        overflow</span>-<span style="color: #000000;">x: hidden;
+      }
+
+      img {
+        margin: 5px;
+        border: 2px solid black;
+        vertical</span>-<span style="color: #000000;">align: middle;
+        width: 75px;
+        height: 75px;
+      }
+    </span>&lt;/style&gt;
+
+    &lt;!--
+      -<span style="color: #000000;"> JavaScript and HTML must be in separate files: see our Content Security
+      </span>- Policy documentation[1] <span style="color: #0000ff;">for</span><span style="color: #000000;"> details and explanation.
+      </span>-
+      - [1]: http:<span style="color: #008000;">//</span><span style="color: #008000;">developer.chrome.com/extensions/contentSecurityPolicy.html</span>
+     --&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+  &lt;p id="p1"&gt;Hello World-1&lt;/p&gt;
+  &lt;p id="p2"&gt;Hello World-2&lt;/p&gt;
+  &lt;script src="popup.js"&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./chrome插件编写之新版hello world - juejiang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp; &nbsp;popup.html中有两个分别为p1和p2的标签，其中p1标签中原有的内容是Hello World-1,p2标签中原有的内容是Hello World-2。在popup.js中通过代码将标签1的内容修改为了Hello New World。</p>
+<h3 id="blogTitle5">2.4 popup.js</h3>
+<div class="cnblogs_code">
+<pre>document.getElementById("p1").innerHTML="Hello New World"</pre>
+</div>
+<h3 id="blogTitle6">2.5 将插件安装到chrome浏览器中</h3>
+<p>2.5.1进入extension页面<a href="chrome://chrome/extensions/">扩展程序</a></p>
+<p>2.5.2勾选开发者模式</p>
+<p><img src="./chrome插件编写之新版hello world - juejiang - 博客园_files/091104427374769.png" alt="" width="508" height="75"></p>
+<p>2.5.3将包含源码的目录直接拖入extension页面，完成安装。点击重新加载可以更新。</p>
+<p><img src="./chrome插件编写之新版hello world - juejiang - 博客园_files/091106278465892.png" alt="" width="524" height="95"></p>
+<p>2.5.4运行，并看到了popup.html页面的正确显示且被popup.js所修改</p>
+<p><img src="./chrome插件编写之新版hello world - juejiang - 博客园_files/091107306592101.png" alt=""></p>
+<h2 id="blogTitle7">三、通过backgroud javascript实现hello world！</h2>
+<p>目标：打开http://www.baidu.com/时，弹出hello world的提示框</p>
+<h3 id="blogTitle8">3.1文件清单</h3>
+<p><img src="./chrome插件编写之新版hello world - juejiang - 博客园_files/091151307843295.png" alt=""></p>
+<h3 id="blogTitle9">3.2manifest.json文件</h3>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./chrome插件编写之新版hello world - juejiang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #000000;">{
+</span>"manifest_version":2<span style="color: #000000;">,
+
+</span>"name":"one-click hello_world"<span style="color: #000000;">,
+</span>"description":"my first chrome extension-background"<span style="color: #000000;">,
+</span>"version":"1.0"<span style="color: #000000;">,
+</span>"permissions"<span style="color: #000000;">:[
+    </span>"tabs"<span style="color: #000000;">,
+    </span>"https://*/*"<span style="color: #000000;">,
+    </span>"http://*/*"<span style="color: #000000;">
+    ],
+</span>"background"<span style="color: #000000;">: {
+    </span>"scripts": ["bg.js"<span style="color: #000000;">],
+    </span>"persistent": <span style="color: #0000ff;">false</span><span style="color: #000000;">
+  }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./chrome插件编写之新版hello world - juejiang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp; &nbsp;permission字段中，新增“tabs”属性，后面需要通过tab来获得当前页面的url。background字段中指明了需要在后台运行的bg.js</p>
+<h3 id="blogTitle10">3.3 bg.js</h3>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./chrome插件编写之新版hello world - juejiang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>console.log("background"<span style="color: #000000;">)
+chrome.tabs.onUpdated.addListener(function(tabId , info) {
+    </span><span style="color: #0000ff;">if</span> (info.status == "complete"<span style="color: #000000;">) {
+        chrome.tabs.query({</span>'active': <span style="color: #0000ff;">true</span>, 'lastFocusedWindow': <span style="color: #0000ff;">true</span><span style="color: #000000;">}, function (tabs) {
+            var url </span>= tabs[0<span style="color: #000000;">].url;
+            console.log(url)
+            </span><span style="color: #0000ff;">if</span>(url=="http://www.baidu.com/"<span style="color: #000000;">){
+                chrome.tabs.executeScript(</span><span style="color: #0000ff;">null</span>,{code:'alert("Hello World!")'<span style="color: #000000;">});
+            }
+        });
+    }
+});</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./chrome插件编写之新版hello world - juejiang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp; &nbsp;bg.js中注册了tabs的监听器，在当前页面加载完整之后检查当前页面链接是否是http://www.baidu.com/，并执行相应操作。</p>
+<h3 id="blogTitle11">3.4 执行后的效果</h3>
+<p><img src="./chrome插件编写之新版hello world - juejiang - 博客园_files/091153548464717.png" alt="" width="413" height="183"></p>
+<h2 id="blogTitle12">四、通过page action实现hello world！</h2>
+<h3 id="blogTitle13">4.1 目标</h3>
+<p>&nbsp; &nbsp;访问http://www.baidu.com，在地址栏的右侧出现page action的图标，点击弹出html页面</p>
+<h3 id="blogTitle14">4.2文件清单</h3>
+<p><img src="./chrome插件编写之新版hello world - juejiang - 博客园_files/091241371438402.png" alt=""></p>
+<h3 id="blogTitle15">4.3manifest.json</h3>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./chrome插件编写之新版hello world - juejiang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #000000;">{
+</span>"manifest_version":2<span style="color: #000000;">,
+
+</span>"name":"one-click hello_world"<span style="color: #000000;">,
+</span>"description":"my first chrome extension-background"<span style="color: #000000;">,
+</span>"version":"1.0"<span style="color: #000000;">,
+</span>"permissions"<span style="color: #000000;">:[
+    </span>"tabs"<span style="color: #000000;">,
+    </span>"http://*/*"<span style="color: #000000;">
+    ],
+</span>"background"<span style="color: #000000;">: {
+    </span>"scripts": ["bg.js"<span style="color: #000000;">],
+    </span>"persistent": <span style="color: #0000ff;">false</span><span style="color: #000000;">
+},
+</span>"page_action"<span style="color: #000000;">: {
+    </span>"default_name": "Hello world"<span style="color: #000000;">,
+    </span>"default_icon": "marker.png"<span style="color: #000000;">,
+    </span>"default_popup": "popup.html"<span style="color: #000000;">
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./chrome插件编写之新版hello world - juejiang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp; &nbsp;新增了page_action字段，指定了page action的图标和下拉html。</p>
+<h3 id="blogTitle16">4.4 bg.js</h3>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./chrome插件编写之新版hello world - juejiang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>console.log("background"<span style="color: #000000;">)
+chrome.tabs.onUpdated.addListener(function(tabId , info) {
+    </span><span style="color: #0000ff;">if</span> (info.status == "complete"<span style="color: #000000;">) {
+        chrome.tabs.query({</span>'active': <span style="color: #0000ff;">true</span>, 'lastFocusedWindow': <span style="color: #0000ff;">true</span><span style="color: #000000;">}, function (tabs) {
+            var url </span>= tabs[0<span style="color: #000000;">].url;
+            console.log(url)
+            </span><span style="color: #0000ff;">if</span>(url=="http://www.baidu.com/"<span style="color: #000000;">){
+                chrome.pageAction.show(tabs[</span>0<span style="color: #000000;">].id)
+            }
+        });
+    }
+});</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./chrome插件编写之新版hello world - juejiang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp; &nbsp;page action默认不做显示，当页面url=="http://www.baidu.com/",通过api&nbsp;chrome.pageAction.show显示page action</p>
+<h3 id="blogTitle17">4.5 访问http://www.baidu.com,查看运行效果</h3>
+<p><img src="./chrome插件编写之新版hello world - juejiang - 博客园_files/091242460491552.png" alt=""></p>
+<h3 id="blogTitle18">4.6page action和browser action的对比</h3>
+<p>&nbsp; &nbsp;page action适用于插件仅针对少数页面的情况，browser action则主要适用于插件对大部分页面都有效的情况。就能够实现的功能而言是基本一致的。二者对比可以进一步参见[4]</p>
+<h2 id="blogTitle19">六、参考材料</h2>
+<p>[1]<a href="https://developer.chrome.com/extensions/getstarted">Getting Started: Building a Chrome Extension - Google Chrome</a></p>
+<p>[2]<a href="http://stackoverflow.com/questions/1979583/how-can-i-get-the-url-for-a-google-chrome-tab">How can I get the URL for a Google Chrome tab? - Stack Overflow</a></p>
+<p>[3]<a href="http://stackoverflow.com/questions/2149917/chrome-extensions-how-to-know-when-a-tab-has-finished-loading-from-the-backgr">Chrome extensions : How to know when a tab has finished loading, from the background page - Stack Overflow</a></p>
+<p>[4]<a href="https://developer.chrome.com/extensions/pageAction">chrome.pageAction - Google Chrome</a></p>
+<p>[5]<a href="https://developer.chrome.com/extensions/samples">Sample Extensions - Google Chrome</a></p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(4084894,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;52317d02-7d3b-e211-aa8f-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./chrome插件编写之新版hello world - juejiang - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./chrome插件编写之新版hello world - juejiang - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/jiangz/" target="_blank"><img src="./chrome插件编写之新版hello world - juejiang - 博客园_files/sample_face.gif" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/jiangz/">juejiang</a><br>
+            <a href="http://home.cnblogs.com/u/jiangz/followees">关注 - 21</a><br>
+            <a href="http://home.cnblogs.com/u/jiangz/followers">粉丝 - 18</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;52317d02-7d3b-e211-aa8f-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(4084894,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">3</span>
+    </div>
+    <div class="buryit" onclick="votePost(4084894,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/jiangz/p/4076811.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/jiangz/p/4076811.html" title="发布于2014-11-05 17:03">关于ubuntu的sources.list总结</a><br><a href="http://www.cnblogs.com/jiangz/p/4162316.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/jiangz/p/4162316.html" title="发布于2014-12-14 11:01">gzip: stdout: No space left on device问题的解决</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2014-11-09 15:04</span> <a href="http://www.cnblogs.com/jiangz/">juejiang</a> 阅读(<span id="post_view_count">1286</span>) 评论(<span id="post_comment_count">1</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=4084894" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/jiangz/p/4084894.html#" onclick="AddToWz(4084894);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=135502,cb_entryId=4084894,cb_blogApp=currentBlogApp,cb_blogUserGuid='52317d02-7d3b-e211-aa8f-842b2b196315',cb_entryCreatedDate='2014/11/9 15:04:00';loadViewCount(cb_entryId);var cb_postType=1;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<!--done-->
+<br>
+<div class="feedback_area_title">评论</div>
+<div class="feedbackNoItems"></div>
+	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/jiangz/p/4084894.html#3522547" class="layer">#1楼</a><a name="3522547" id="comment_anchor_3522547"></a><span id="comment-maxId" style="display:none;">3522547</span><span id="comment-maxDate" style="display:none;">2016/9/29 16:20:50</span> <span class="comment_date">2016-09-29 16:20</span> | <a id="a_comment_author_3522547" href="http://www.cnblogs.com/passby/" target="_blank">过客代码站</a> <a href="http://msg.cnblogs.com/send/%E8%BF%87%E5%AE%A2%E4%BB%A3%E7%A0%81%E7%AB%99" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3522547" class="blog_comment_body">Nice work！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3522547,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3522547,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3522547_avatar" style="display:none;">http://pic.cnblogs.com/face/u323088.jpg?id=11141239</span>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/jiangz/p/4084894.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/jiangz/p/4084894.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://cloud.tencent.com/act/bargin?fromSource=gwzcw.705175.705175.705175" target="_blank">【促销】腾讯云技术升级10大核心产品年终让利</a><br><a href="http://click.aliyun.com/m/17164/" target="_blank">【推荐】高性能云服务器2折起，0.73元/日节省80%运维成本</a><br><a href="https://news.cnblogs.com/n/582971/" target="_blank">【新闻】H3 BPM体验平台全面上线</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="http://www.grapecity.com.cn/enterprise-solutions/activereports_server/?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=AR&amp;utm_campaign=community" target="_blank"><img width="300" height="250" src="./chrome插件编写之新版hello world - juejiang - 博客园_files/24442-20171217100625905-249572338.png" alt="葡萄城C1"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="https://news.cnblogs.com/n/585415/" target="_blank">“吃鸡”终于转正！《绝地求生》1.0版宣布21日15点上线</a><br> ·  <a href="https://news.cnblogs.com/n/585419/" target="_blank">算法还是算力？周志华微博引爆深度学习的“鸡生蛋，蛋生鸡”问题</a><br> ·  <a href="https://news.cnblogs.com/n/585418/" target="_blank">腾讯绝艺AI下一步将学习AlphaGo zero 自对弈训练</a><br> ·  <a href="https://news.cnblogs.com/n/585414/" target="_blank">QQ出了个“AI 跳舞机” 可以随时随地尬舞了</a><br> ·  <a href="https://news.cnblogs.com/n/585411/" target="_blank">郭台铭砸重金投资 天然气行业有望成资金追捧对象</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/34770/" target="_blank"><img width="468" height="60" src="./chrome插件编写之新版hello world - juejiang - 博客园_files/24442-20171208101900738-116140477.jpg" alt="阿里云C2-1208"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/531409/" target="_blank">以操作系统的角度述说线程与进程</a><br> ·  <a href="http://kb.cnblogs.com/page/141729/" target="_blank">软件测试转型之路</a><br> ·  <a href="http://kb.cnblogs.com/page/177402/" target="_blank">门内门外看招聘</a><br> ·  <a href="http://kb.cnblogs.com/page/112506/" target="_blank">大道至简，职场上做人做事做管理</a><br> ·  <a href="http://kb.cnblogs.com/page/563790/" target="_blank">关于编程，你的练习是不是有效的？</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><!--添加博客目录-->
+
+<div align="center"><a href="http://www.amazingcounters.com/"><img border="0" src="./chrome插件编写之新版hello world - juejiang - 博客园_files/counter.php" alt="AmazingCounters.com"></a></div><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/jiangz/">juejiang</a><br>园龄：<a href="http://home.cnblogs.com/u/jiangz/" title="入园时间：2012-12-01">5年</a><br>粉丝：<a href="http://home.cnblogs.com/u/jiangz/followers/">18</a><br>关注：<a href="http://home.cnblogs.com/u/jiangz/followees/">21</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;52317d02-7d3b-e211-aa8f-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/11/01&#39;);return false;">&lt;</a></td><td align="center">2017年12月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2018/01/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td align="center">1</td><td class="CalWeekendDay" align="center">2</td></tr><tr><td class="CalWeekendDay" align="center">3</td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td class="CalWeekendDay" align="center">9</td></tr><tr><td class="CalWeekendDay" align="center">10</td><td align="center">11</td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td class="CalWeekendDay" align="center">16</td></tr><tr><td class="CalWeekendDay" align="center">17</td><td align="center">18</td><td align="center">19</td><td class="CalTodayDay" align="center">20</td><td align="center">21</td><td align="center">22</td><td class="CalWeekendDay" align="center">23</td></tr><tr><td class="CalWeekendDay" align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td align="center">29</td><td class="CalWeekendDay" align="center">30</td></tr><tr><td class="CalWeekendDay" align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/jiangz/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/jiangz/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/jiangz/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/jiangz/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/jiangz/tag/" title="我的博客的标签列表">我的标签</a></li>
+<li><a id="itemListLink" onclick="this.blur();WarpClass(&#39;itemListLink&#39;, &#39;itemListLin_con&#39;);return false;" href="http://www.cnblogs.com/jiangz/p/4084894.html#">更多链接</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/jiangz/tag/linux/">linux</a>(6)</li><li><a href="http://www.cnblogs.com/jiangz/tag/android%E5%BC%80%E5%8F%91/">android开发</a>(4)</li><li><a href="http://www.cnblogs.com/jiangz/tag/android%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/">android系统安装</a>(1)</li><li><a href="http://www.cnblogs.com/jiangz/tag/eclipse/">eclipse</a>(1)</li><li><a href="http://www.cnblogs.com/jiangz/tag/git%20%E4%BD%BF%E7%94%A8/">git 使用</a>(1)</li><li><a href="http://www.cnblogs.com/jiangz/tag/git%E4%BD%BF%E7%94%A8/">git使用</a>(1)</li><li><a href="http://www.cnblogs.com/jiangz/tag/IOS/">IOS</a>(1)</li><li><a href="http://www.cnblogs.com/jiangz/tag/ios%20%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3/">ios 网络相关</a>(1)</li><li><a href="http://www.cnblogs.com/jiangz/tag/TCP%2FIP%E8%AF%A6%E8%A7%A3/">TCP/IP详解</a>(1)</li><li><a href="http://www.cnblogs.com/jiangz/tag/ubuntu/">ubuntu</a>(1)</li><li><a href="http://www.cnblogs.com/jiangz/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+<div class="catListPostCategory">
+<h3 class="catListTitle">随笔分类</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/jiangz/category/481335.html">Android编程(21)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/jiangz/category/481336.html">Linux系统使用(17)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/jiangz/category/481337.html">Windows系统使用(10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/jiangz/category/515464.html">计算机网络(8)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListPostArchive">
+<h3 class="catListTitle">随笔档案</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/jiangz/archive/2017/10.html">2017年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/jiangz/archive/2017/09.html">2017年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/jiangz/archive/2017/07.html">2017年7月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/jiangz/archive/2017/06.html">2017年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/jiangz/archive/2017/05.html">2017年5月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/jiangz/archive/2017/01.html">2017年1月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/jiangz/archive/2016/12.html">2016年12月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/jiangz/archive/2016/09.html">2016年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/jiangz/archive/2016/08.html">2016年8月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/jiangz/archive/2016/07.html">2016年7月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/jiangz/archive/2016/06.html">2016年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/jiangz/archive/2016/05.html">2016年5月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/jiangz/archive/2016/04.html">2016年4月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/jiangz/archive/2016/03.html">2016年3月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/jiangz/archive/2016/02.html">2016年2月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/jiangz/archive/2016/01.html">2016年1月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/jiangz/archive/2015/11.html">2015年11月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/jiangz/archive/2015/10.html">2015年10月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/jiangz/archive/2015/09.html">2015年9月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/jiangz/archive/2015/06.html">2015年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/jiangz/archive/2015/05.html">2015年5月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/jiangz/archive/2015/03.html">2015年3月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_22" href="http://www.cnblogs.com/jiangz/archive/2015/01.html">2015年1月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_23" href="http://www.cnblogs.com/jiangz/archive/2014/12.html">2014年12月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_24" href="http://www.cnblogs.com/jiangz/archive/2014/11.html">2014年11月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_25" href="http://www.cnblogs.com/jiangz/archive/2014/06.html">2014年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_26" href="http://www.cnblogs.com/jiangz/archive/2014/05.html">2014年5月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_27" href="http://www.cnblogs.com/jiangz/archive/2014/04.html">2014年4月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_28" href="http://www.cnblogs.com/jiangz/archive/2014/03.html">2014年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_29" href="http://www.cnblogs.com/jiangz/archive/2014/01.html">2014年1月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_30" href="http://www.cnblogs.com/jiangz/archive/2013/12.html">2013年12月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_31" href="http://www.cnblogs.com/jiangz/archive/2013/11.html">2013年11月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_32" href="http://www.cnblogs.com/jiangz/archive/2013/10.html">2013年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_33" href="http://www.cnblogs.com/jiangz/archive/2013/09.html">2013年9月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_34" href="http://www.cnblogs.com/jiangz/archive/2013/08.html">2013年8月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_35" href="http://www.cnblogs.com/jiangz/archive/2013/07.html">2013年7月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_36" href="http://www.cnblogs.com/jiangz/archive/2013/06.html">2013年6月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_37" href="http://www.cnblogs.com/jiangz/archive/2013/05.html">2013年5月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_38" href="http://www.cnblogs.com/jiangz/archive/2013/04.html">2013年4月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_39" href="http://www.cnblogs.com/jiangz/archive/2013/03.html">2013年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_40" href="http://www.cnblogs.com/jiangz/archive/2013/02.html">2013年2月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_41" href="http://www.cnblogs.com/jiangz/archive/2012/12.html">2012年12月 (3)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/jiangz/p/3734968.html#3682550">1. Re:为博客园添加目录的配置总结</a></li>
+        <li class="recent_comment_body">二、三级目录没有显示，你的会这样吗？</li>
+        <li class="recent_comment_author">--七月流火嗞嗞嗞</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/jiangz/p/4084894.html#3522547">2. Re:chrome插件编写之新版hello world</a></li>
+        <li class="recent_comment_body">Nice work！</li>
+        <li class="recent_comment_author">--过客代码站</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/jiangz/p/3734968.html#3474680">3. Re:为博客园添加目录的配置总结</a></li>
+        <li class="recent_comment_body">@DM张朋飞我刚也是遇到和你一样的，把CSS的所有名字都改了，然后把代码放到页脚脚本就好了。...</li>
+        <li class="recent_comment_author">--天辰夜域</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/jiangz/p/4848194.html#3278720">4. Re:安卓手机已保存WiFi密码查看助手（开源）</a></li>
+        <li class="recent_comment_body">不错不错</li>
+        <li class="recent_comment_author">--BIT祝威</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/jiangz/p/4848194.html#3278711">5. Re:安卓手机已保存WiFi密码查看助手（开源）</a></li>
+        <li class="recent_comment_body">不错不错</li>
+        <li class="recent_comment_author">--涂磊</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/jiangz/archive/2013/03/09/windows.html">1. win7 中出现"为了配置TCP/IP,必须安装并启动网络适配卡"问题的解决办法(19987)</a></li><li><a href="http://www.cnblogs.com/jiangz/p/3296880.html">2. java.io.IOException: 您的主机中的软件中止了一个已建立的连接解决办法(5452)</a></li><li><a href="http://www.cnblogs.com/jiangz/p/3515169.html">3. 用802.11n 加速，将android手机屏幕投影到win7电脑上(3600)</a></li><li><a href="http://www.cnblogs.com/jiangz/p/4183461.html">4. ubuntu为用户增加sudoer权限的两种方法(3019)</a></li><li><a href="http://www.cnblogs.com/jiangz/archive/2013/04/04/2997047.html">5. PC使用wireshark直接查看android手机上tcpdump捕捉到的数据包(2427)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/jiangz/p/3734968.html">1. 为博客园添加目录的配置总结(8)</a></li><li><a href="http://www.cnblogs.com/jiangz/archive/2013/04/04/2997047.html">2. PC使用wireshark直接查看android手机上tcpdump捕捉到的数据包(4)</a></li><li><a href="http://www.cnblogs.com/jiangz/archive/2012/12/24/2831705.html">3. shell中的管道命令和并行执行(3)</a></li><li><a href="http://www.cnblogs.com/jiangz/p/3515169.html">4. 用802.11n 加速，将android手机屏幕投影到win7电脑上(2)</a></li><li><a href="http://www.cnblogs.com/jiangz/p/3330245.html">5. Android系统自带APP分析——短信app(2)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/jiangz/p/4848194.html">1. 安卓手机已保存WiFi密码查看助手（开源）(4)</a></li><li><a href="http://www.cnblogs.com/jiangz/p/4084894.html">2. chrome插件编写之新版hello world(3)</a></li><li><a href="http://www.cnblogs.com/jiangz/p/5380008.html">3. 我离baidu.com有几跳(3)</a></li><li><a href="http://www.cnblogs.com/jiangz/p/5204367.html">4. python有超时的windows系统时间设置代码(2)</a></li><li><a href="http://www.cnblogs.com/jiangz/p/3515169.html">5. 用802.11n 加速，将android手机屏幕投影到win7电脑上(2)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2017 juejiang
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+<div class="uprightsideBar" id="uprightsideBar"><div id="sideBarTab"><h2>目录导航</h2></div><div id="sideBarContents" style="display: none;"><dl><dt name="0">一、chrome插件和用户的几种交互方式</dt><dt name="1">二、通过browser action实现hello world</dt><dd name="2">2.1 程序的文件清单</dd><dd name="3">2.2 manifest.json文件</dd><dd name="4">2.3 popup.html</dd><dd name="5">2.4 popup.js</dd><dd name="6">2.5 将插件安装到chrome浏览器中</dd><dt name="7">三、通过backgroud javascript实现hello world！</dt><dd name="8">3.1文件清单</dd><dd name="9">3.2manifest.json文件</dd><dd name="10">3.3 bg.js</dd><dd name="11">3.4 执行后的效果</dd><dt name="12">四、通过page action实现hello world！</dt><dd name="13">4.1 目标</dd><dd name="14">4.2文件清单</dd><dd name="15">4.3manifest.json</dd><dd name="16">4.4 bg.js</dd><dd name="17">4.5 访问http://www.baidu.com,查看运行效果</dd><dd name="18">4.6page action和browser action的对比</dd><dt name="19">六、参考材料</dt></dl></div></div></body></html>

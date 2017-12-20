@@ -1,0 +1,16 @@
+{
+"manifest_version":2,
+
+"name":"one-click taobao2",
+"description":"my first chrome taobao",
+"version":"1.0",
+"permissions":[
+    "tabs",
+    "https://*/*",
+    "http://*/*"
+    ],
+"background": {
+    "scripts": ["bg.js"],
+    "persistent": false
+  }
+}
