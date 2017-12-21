@@ -4,6 +4,11 @@
     <title></title>
     <meta charset="utf-8" />
     <script>
+
+	// setTimeout只执行一次，setInterval重复无数次
+	// setInterval(code, time)
+	//code: '是一段代码', 是一个函数， 是一个函数名(或"函数名()")
+
         //定义全局变量，用于记录秒数
         var n = 5;
         window.onload = function () {
@@ -16,6 +21,7 @@
             if (n > 0) {
                 n--;
                 document.getElementById("num").innerHTML = n;
+//                document.getElementById("num").innerHTML = "<span id='num'>"+n+"</span>";//see 9.4-3
             }
         }
     </script>

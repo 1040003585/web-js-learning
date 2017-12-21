@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script>
+        window.onload = function () {
+            var oBtn = document.getElementById("btn");
+            oBtn.onclick = function () {
+                var opener = window.open("https://www.baidu.com");
+		//如果打开另外的域名，比如百度，由于跨越权限问题，你下面则修改不了页面元素
+                //opener.document.write("这是一个新窗口");
+                //opener.document.body.style.backgroundColor = "lightskyblue";
+            };
+        }
+    </script>
+</head>
+<body>
+    <input id="btn" type="button" value="打开百度" />
+</body>
+</html>

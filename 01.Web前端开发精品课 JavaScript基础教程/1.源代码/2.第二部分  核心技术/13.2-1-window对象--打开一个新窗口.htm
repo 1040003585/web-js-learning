@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script>
+	//window常见属性：window = [document, location, navigator, history, frames, screen,]
+	//document=[title, body, forms, images, links, ]
+	//window常见方法：alert(), confirm(), prompt(), open(), close(), setTimeout(), clearTimeout(), setInterval(), clearInterval()
+	//使用window方法可以省略写window，如window.open() = open(), window.alert() = alert(), window.document.getElementById() = document.getElementById()
+        window.onload = function () {
+            var oBtn = document.getElementById("btn");
+            oBtn.onclick = function () {
+                window.open("http://www.lvyestudy.com");		//default without parameter
+//                window.open("http://www.lvyestudy.com", "_blank");	//the same up
+//                window.open("http://www.lvyestudy.com", "_self");
+            };
+        }
+    </script>
+</head>
+<body>
+    <input id="btn" type="button" value="打开"/>
+</body>
+</html>

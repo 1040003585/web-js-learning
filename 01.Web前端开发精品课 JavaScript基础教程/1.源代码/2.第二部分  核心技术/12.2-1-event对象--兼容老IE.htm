@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script>
+	//1.4
+        window.onload = function () {
+            alert("欢迎打开");
+        }
+        window.onbeforeload = function (event) {
+            var e = event || window.event;
+	    e.returnValue = "下次再来哦";
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>
