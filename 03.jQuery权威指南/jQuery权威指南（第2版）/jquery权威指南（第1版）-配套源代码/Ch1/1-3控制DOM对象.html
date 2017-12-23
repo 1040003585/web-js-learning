@@ -14,15 +14,24 @@
            .divBtn .btnCss{border:solid 1px #535353;width:60px}
     </style>
     <script type="text/javascript">
-         $(function(){
-           $("#btnSubmit").click(function(){
-             var oTxtValue=$("#Text1").val(); //获取文本框的值
-             var oRdoValue=Radio1.checked?"男":"女"; //获取单选框按钮值
- //            var oRdoValue=$("#Radio1").is (":checked")?"男":"女"; //获取单选框按钮值
-             var oChkValue=$("#Checkbox1").is (":checked")?"已婚":"未婚";//获取复选框按钮值
-             $("#divTip").css("display","block").html(oTxtValue+"<br>"+oRdoValue+"<br>"+oChkValue); //显示提示文本元素
-           })         
-         })
+
+	 $(function(){
+	   $("#btnSubmit").click(function(){
+	     var oTxtValue=$("#Text1").val(); //获取文本框的值JQUERY
+	     var oRdoValue=$("#Radio1").is (":checked")?"男":"女"; //获取单选框按钮值
+	     var oChkValue=$("#Checkbox1").is (":checked")?"已婚":"未婚";//获取复选框按钮值
+	     $("#divTip").css("display","block").html(oTxtValue+"<br>"+oRdoValue+"<br>"+oChkValue); //显示提示文本元素
+	   })         
+	 })
+
+function btnClick()//js
+{
+	var oTxtValue=document.getElementById("Text1").value; //获取文本框的值JS
+	var oRdoValue=Radio1.checked?"男js":"女js"; //获取单选框按钮值
+	var oChkValue=Checkbox1.checked?"已婚js":"未婚js";//获取复选框按钮值
+ 	document.getElementById("divTip").style.display="block";
+	document.getElementById("divTip").innerHTML=oTxtValue+"<br>"+oRdoValue+"<br>"+oChkValue; //显示提示文
+}
     </script>
 </head>
 <body>
@@ -34,6 +43,7 @@
               <input id="Radio2" name="rdoSex" type="radio" value="女" />女<br />
         婚否：<input id="Checkbox1" type="checkbox" />
         <div class="divBtn"><input id="btnSubmit" type="button" value="提 交" class="btnCss" /></div>
+        <div class="divBtn"><input  type="button" value="提 交js" class="btnCss" onclick="btnClick()"/></div>
     </div>
 </div>
 <div id="divTip" class="divTip"></div>

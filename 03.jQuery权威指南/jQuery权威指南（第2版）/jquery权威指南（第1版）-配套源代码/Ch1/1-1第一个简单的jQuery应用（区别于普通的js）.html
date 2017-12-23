@@ -8,6 +8,16 @@
            $(document).ready(function(){
               alert("您好,欢迎来到jQuery世界");           
            })
+	// is same bellow....
+           $(function(){
+              alert("您好,欢迎来到jQuery世界2");           
+           })
+
+	//is different with
+	/*	window.onload=function(){...}	*/
+	//1. $(document).ready在页面加载完就执行，而window.onload要等全部加载（包括图片）完才执行。
+	//2. $(document).ready可以写多个，而window.onload只执行最后一个。
+
     </script>
 </head>
 <body>
