@@ -17,7 +17,8 @@
          $(function(){
            $("#btnSubmit").click(function(){
              var oTxtValue=$("#Text1").val(); //获取文本框的值
-             var oRdoValue=$("#Radio1").is (":checked")?"男":"女"; //获取单选框按钮值
+             var oRdoValue=Radio1.checked?"男":"女"; //获取单选框按钮值
+ //            var oRdoValue=$("#Radio1").is (":checked")?"男":"女"; //获取单选框按钮值
              var oChkValue=$("#Checkbox1").is (":checked")?"已婚":"未婚";//获取复选框按钮值
              $("#divTip").css("display","block").html(oTxtValue+"<br>"+oRdoValue+"<br>"+oChkValue); //显示提示文本元素
            })         
