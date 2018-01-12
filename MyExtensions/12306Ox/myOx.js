@@ -2,10 +2,12 @@
     Ox at 12306 ... ^_^
 */
 
-var t_search = setInterval(search_ticket, 2000);
-var t_book   = setInterval(  book_ticket, 200);
+// 设置三个不同功能的定时函数setInterval(fun,每隔多久运行fun)
+var t_search = setInterval(search_ticket, 997);
+var t_book   = setInterval(  book_ticket,  97);
 var t_border = setInterval(change_color , 500);
 
+// 车票预订的“查询”函数
 function search_ticket(){
 	//var from = document.getElementById("fromStationText");
 	//var to   = document.getElementById("toStationText");
@@ -22,11 +24,13 @@ function search_ticket(){
 	if(find2) find2.click();
 }
 
+// 车票“预订”函数
 function book_ticket(){
 	var book = document.getElementsByClassName("btn72")[0];
 	if(book) book.click();
 }
 
+// 窗口颜色变换函数
 var time = 0;
 function change_color(){
 	time++;
