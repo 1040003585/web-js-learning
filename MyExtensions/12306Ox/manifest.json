@@ -1,0 +1,18 @@
+{
+
+  "description": "Ox at 12306... ^_^",
+  "manifest_version": 2,
+  "name": "Ox",
+  "version": "1.0",
+  "icons": {
+    "48": "icons/Ox.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.12306.cn/*"],
+      "js": ["myOx.js"]
+    }
+  ]
+
+}
